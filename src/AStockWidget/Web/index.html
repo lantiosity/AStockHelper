@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A股实时行情</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <div class="titlebar">
+      <div class="brand">
+        <span class="conn-dot" id="connDot"></span>
+        <span class="brand-text">A股实时行情</span>
+      </div>
+      <div class="actions">
+        <button class="action-btn" id="minBtn" title="最小化">–</button>
+        <button class="action-btn close" id="closeBtn" title="关闭">×</button>
+      </div>
+    </div>
+
+    <div class="search-wrap">
+      <input id="searchInput" type="text" autocomplete="off" spellcheck="false"
+             placeholder="输入名称或代码搜索A股">
+      <div class="search-results" id="searchResults" hidden></div>
+    </div>
+
+    <div class="stock-list" id="stockList">
+      <div class="empty-tip" id="emptyTip">暂无自选股，上方搜索添加</div>
+    </div>
+
+    <div class="market-bar" id="marketBar">--</div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

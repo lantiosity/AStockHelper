@@ -1,0 +1,7 @@
+bin/
+obj/
+*.user
+.vs/
+config.json
+publish/
+*.nupkg

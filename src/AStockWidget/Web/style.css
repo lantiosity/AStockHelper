@@ -1,0 +1,369 @@
+:root {
+  --bg: #f5f6f8;
+  --panel: #ffffff;
+  --border: #e6e8ec;
+  --text: #1f2329;
+  --text-secondary: #8a919c;
+  --open-name: #1f2329;
+  --closed-name: #9aa0a6;
+  --up: #e04343;
+  --down: #12a06d;
+  --flat: #8a919c;
+  --accent: #2f6bff;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: "DINW10-Medium", "DIN Alternate", "DIN", "Segoe UI", "Microsoft YaHei UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: default;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* ---------- Title bar ---------- */
+.titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 52px;
+  padding: 0 8px 0 16px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+}
+
+.conn-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--flat);
+  transition: background-color 0.25s;
+}
+
+.conn-dot.online {
+  background: var(--down);
+}
+
+.conn-dot.offline {
+  background: var(--up);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.action-btn {
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.action-btn:hover {
+  background: #eef0f3;
+  color: var(--text);
+}
+
+.action-btn.close:hover {
+  background: #e81123;
+  color: #fff;
+}
+
+/* ---------- Search ---------- */
+.search-wrap {
+  position: relative;
+  padding: 8px 12px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+}
+
+#searchInput {
+  width: 100%;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+#searchInput::placeholder {
+  color: #b0b6be;
+}
+
+#searchInput:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(47, 107, 255, 0.12);
+  background: var(--panel);
+}
+
+.search-results {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  top: 52px;
+  z-index: 20;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.search-result {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f1f4;
+}
+
+.search-result:last-child {
+  border-bottom: none;
+}
+
+.search-result:hover {
+  background: #f5f7fb;
+}
+
+.result-name {
+  flex: 1;
+  font-size: 13px;
+  color: var(--text);
+}
+
+.result-code {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.market-tag {
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: #eef0f3;
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+/* ---------- Stock list ---------- */
+.stock-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 6px 12px;
+  background: var(--bg);
+}
+
+.empty-tip {
+  padding: 32px 0;
+  text-align: center;
+  color: #b0b6be;
+  font-size: 13px;
+}
+
+.stock-row {
+  display: grid;
+  grid-template-areas:
+    "left right remove"
+    "left info   remove";
+  grid-template-columns: 1fr auto 24px;
+  grid-template-rows: auto auto;
+  align-items: center;
+  column-gap: 10px;
+  padding: 8px 10px 8px 12px;
+  height: 72px;
+  margin-bottom: 4px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.stock-left {
+  grid-area: left;
+  min-width: 0;
+}
+
+.stock-name {
+  font-size: 14px;
+  color: var(--open-name);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.2s;
+}
+
+body.closed .stock-name {
+  color: var(--closed-name);
+}
+
+.stock-code {
+  margin-top: 2px;
+  font-size: 11px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.stock-right {
+  grid-area: right;
+  text-align: right;
+}
+
+.stock-price {
+  font-size: 15px;
+  color: var(--flat);
+  font-variant-numeric: tabular-nums;
+}
+
+.stock-change {
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--flat);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.stock-info {
+  grid-area: info;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+  font-size: 11px;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.stock-price.up,
+.stock-change.up {
+  color: var(--up);
+}
+
+.stock-price.down,
+.stock-change.down {
+  color: var(--down);
+}
+
+.stock-price.flat,
+.stock-change.flat {
+  color: var(--flat);
+}
+
+.stock-remove {
+  grid-area: remove;
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: #c0c6cf;
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.15s, background-color 0.15s, color 0.15s;
+}
+
+.stock-row:hover .stock-remove {
+  opacity: 1;
+}
+
+.stock-remove:hover {
+  background: #fdecec;
+  color: var(--up);
+}
+
+/* ---------- Market bar ---------- */
+.market-bar {
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: var(--panel);
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.market-bar .market-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--flat);
+}
+
+.market-bar.open .market-dot {
+  background: var(--down);
+}
+
+.market-bar.closed .market-dot {
+  background: var(--flat);
+}
+
+body.closed .market-bar span {
+  color: var(--closed-name);
+}
+
+#notice {
+  color: var(--up);
+}
+
+/* Scrollbar */
+.stock-list::-webkit-scrollbar,
+.search-results::-webkit-scrollbar {
+  width: 6px;
+}
+
+.stock-list::-webkit-scrollbar-thumb,
+.search-results::-webkit-scrollbar-thumb {
+  background: #d4d8de;
+  border-radius: 3px;
+}
+
+.stock-list::-webkit-scrollbar-track,
+.search-results::-webkit-scrollbar-track {
+  background: transparent;
+}
